@@ -1,12 +1,28 @@
-export const increment = (nr) => {
+export const add = (text) => {
   return {
-    type: "INCREMENT",
-    payload: nr,
+    type: "ADD",
+    payload: text,
   };
 };
 
-export const decrement = () => {
+export const updateItem = (key, newItem) => {
   return {
-    type: "DECREMENT",
+    type: "UPDATE",
+    key,
+    newItem,
+  };
+};
+
+export const deleteItem = (key) => {
+  return {
+    type: "DELETE",
+    key,
+  };
+};
+
+export const setCurrent = (key) => {
+  return {
+    type: "SET",
+    key,
   };
 };
