@@ -1,11 +1,9 @@
 import loggedReducer from "./isLogged";
-import itemsReducer from "./items";
-import currentReducer from "./currentItem";
+import todosReducer from "./todos";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
-  items: itemsReducer,
-  current: currentReducer,
+  todos: todosReducer,
   isLogged: loggedReducer,
 });
 

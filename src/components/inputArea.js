@@ -1,36 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { add, setCurrent, updateItem } from "../actions";
+import { add, updateItem } from "../actions";
 
-function InputArea(props) {
+function InputArea() {
   const [inputText, setInputText] = useState("");
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.items);
-  const current = useSelector((state) => state.current);
+  const { todos, currentItemId } = useSelector((state) => state.todos);
 
   useEffect(() => {
-    current !== null && setInputText(items[current]);
-  }, [current, items]);
+    if (currentItemId !== -1) {
+      const currentItemText = todos.find((obj) => obj.id === currentItemId)
+        .text;
+      setInputText(currentItemText);
+    }
+  }, [todos, currentItemId]);
 
-  function handleChange(event) {
-    const newValue = event.target.value;
+  function handleChange({ target }) {
+    const newValue = target.value;
     setInputText(newValue);
+  }
+
+  function handleSubmit() {
+    if (currentItemId !== -1) {
+      dispatch(updateItem(currentItemId, inputText));
+    } else {
+      dispatch(add(inputText));
+    }
+    setInputText("");
   }
 
   return (
     <div>
       <input onChange={handleChange} type="text" value={inputText} />
-      <button
-        onClick={() => {
-          if (current !== null) {
-            dispatch(updateItem(current, inputText));
-            dispatch(setCurrent(null));
-          } else {
-            dispatch(add(inputText));
-          }
-          setInputText("");
-        }}
-      >
+      <button onClick={() => handleSubmit()}>
         <span>Submit</span>
       </button>
     </div>

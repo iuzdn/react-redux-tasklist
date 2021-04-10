@@ -1,28 +1,30 @@
-export const add = (text) => {
+export const add = (item) => {
   return {
     type: "ADD",
-    payload: text,
+    payload: item,
   };
 };
 
-export const updateItem = (key, newItem) => {
+export const updateItem = (id, newContent) => {
   return {
     type: "UPDATE",
-    key,
-    newItem,
+    payload: {
+      id,
+      newContent,
+    },
   };
 };
 
-export const deleteItem = (key) => {
+export const deleteItem = (id) => {
   return {
     type: "DELETE",
-    key,
+    payload: id,
   };
 };
 
-export const setCurrent = (key) => {
+export const selectItem = (id) => {
   return {
-    type: "SET",
-    key,
+    type: "SELECT",
+    payload: id,
   };
 };
